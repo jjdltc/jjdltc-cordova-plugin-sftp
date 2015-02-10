@@ -6,9 +6,9 @@ LICENSE TODO
 <plugin xmlns="http://jjdltc.com"
     id="org.jjdltc.cordova.plugin.sftp"
     version="0.0.1">
-    <name>JJ-sftp</name>
+    <name>JJsftp</name>
     <description>Cordova SFTP Upload And Download</description>
-    <author>JJDLTC - Joel De La Torriente - Close Up International Mobile Dev Team</author>
+    <author>JJDLTC - Joel De La Torriente</author>
     <!-- <license>Apache 2.0</license> --><!-- TODO -->
     <keywords>cordova,sftp</keywords>
 <!--     <repo>https://git-wip-us.apache.org/repos/asf/cordova-plugin-device.git</repo>
@@ -19,7 +19,7 @@ LICENSE TODO
     </engines> -->
 <!-- <asset src="www/PathToFile.js" target="PathToFile.js" />     -->
 
-    <js-module src="www/sftp.js" name="sftp">
+    <js-module src="www/JJsftp.js" name="JJsftp">
         <clobbers target="JJsftp" />
     </js-module>
 
@@ -28,7 +28,7 @@ LICENSE TODO
     <platform name="android">
         <config-file target="res/xml/config.xml" parent="/*">
             <feature name="JJsftp" >
-                <param name="android-package" value="org.jjdltc.cordova.plugin.sftp.sftp"/>
+                <param name="android-package" value="org.jjdltc.cordova.plugin.sftp.JJsftp"/>
             </feature>
         </config-file>
 
@@ -40,7 +40,7 @@ LICENSE TODO
 
         <lib-file src="libs/jsch-0-1-51.jar" arch="device" />
 
-        <source-file src="src/android/sftp.java" target-dir="src/org/jjdltc/cordova/plugin/sftp" />
+        <source-file src="src/android/JJsftp.java" target-dir="src/org/jjdltc/cordova/plugin/sftp" />
         <source-file src="src/android/asyncSFTPAction.java" target-dir="src/org/jjdltc/cordova/plugin/sftp" />
         <source-file src="src/android/progressMonitor.java" target-dir="src/org/jjdltc/cordova/plugin/sftp" />
     </platform>

@@ -1,0 +1,40 @@
+        // alert(JSON.stringify(SFTP));
+        var sftp = new JJsftp("host", "user", "password");
+        localPath = cordova.file.dataDirectory.replace(/file:\/\//g, "");
+        alert(localPath);
+        filelist = [{
+              remote    : "/testDir/testFile.txt"
+            , local     : localPath+"testFile.txt"
+        },{
+              remote    : "/testDir/testFiles.txt"
+            , local     : localPath+"testFiles.txt"
+        }]
+
+        var events = ["SFTPActionListProgress","SFTPActionListEnd","SFTPActionCancell","SFTPActionConnected","SFTPActionDisconnected","SFTPActionStart","SFTPActionProgress","SFTPActionEnd"];
+        events.forEach(function(evt){
+            document.addEventListener(evt, function(data){
+                console.log("Fire: "+evt);
+                var keysArgs = Object.keys(data).slice(12);
+                for (var i = 0; keysArgs.length>i; i++) {
+                    console.log("Event: "+evt+" - Param: "+keysArgs[i]+" Value: "+data[keysArgs[i]]);
+                };
+                // console.log(JSON.stringify(Object.keys(data)));
+            });
+        });
+
+        sftp.downloadList(filelist, function(){
+            console.log("JJDLTC cool");
+            console.log(JSON.stringify(arguments));
+            // window.setTimeout(function(){
+                // sftp.cancel(function(){
+                //     console.log("JJDLTC Cancelled");
+                //     console.log(JSON.stringify(arguments));
+                // }, function(){
+                //     console.log("JJDLTC not Cancelled :( ");
+                //     console.log(JSON.stringify(arguments));            
+                // })
+            // }, 11000);
+        }, function(){
+            console.log("JJDLTC not cool :( ");
+            console.log(JSON.stringify(arguments));            
+        });

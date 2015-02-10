@@ -17,8 +17,8 @@ var argscheck   = require('cordova/argscheck'),
  * @param {String} Username
  * @param {String} Password that match with the user name credentials
  */
-function SFTP(host, usr, pwr) {
-    argscheck.checkArgs('sSS', 'SFTP', arguments);
+function JJsftp(host, usr, pwr) {
+    argscheck.checkArgs('sSS', 'JJsftp', arguments);
     this.host       = host || false;
     this.usr        = usr || false;
     this.pwr        = pwr || false;
@@ -37,8 +37,8 @@ function SFTP(host, usr, pwr) {
  * @param {Function} successCallback The function to call when the heading data is available
  * @param {Function} errorCallback The function to call when there is an error getting the heading data. (OPTIONAL)
  */
-SFTP.prototype.download = function(serverPath, localPath, successCallback, errorCallback) {
-    argscheck.checkArgs('sSFF', 'SFTP.download', arguments);
+JJsftp.prototype.download = function(serverPath, localPath, successCallback, errorCallback) {
+    argscheck.checkArgs('sSFF', 'JJsftp.download', arguments);
     var actionInfo      = [{
           remote        : serverPath
         , local         : localPath
@@ -57,8 +57,8 @@ SFTP.prototype.download = function(serverPath, localPath, successCallback, error
  * @param {Function} successCallback The function to call when the heading data is available
  * @param {Function} errorCallback The function to call when there is an error getting the heading data. (OPTIONAL)
  */
-SFTP.prototype.downloadList = function(list, successCallback, errorCallback) {
-    argscheck.checkArgs('aFF', 'SFTP.downloadList', arguments);
+JJsftp.prototype.downloadList = function(list, successCallback, errorCallback) {
+    argscheck.checkArgs('aFF', 'JJsftp.downloadList', arguments);
     exec(successCallback, errorCallback, "JJsftp", "download", [this.hostInfo, list]);
 };
 
@@ -73,12 +73,12 @@ SFTP.prototype.downloadList = function(list, successCallback, errorCallback) {
  * @param {Function} successCallback The function to call when the heading data is available
  * @param {Function} errorCallback The function to call when there is an error getting the heading data. (OPTIONAL)
  */
-SFTP.prototype.cancel = function(successCallback, errorCallback) {
-    argscheck.checkArgs('fF', 'SFTP.cancel', arguments);
+JJsftp.prototype.cancel = function(successCallback, errorCallback) {
+    argscheck.checkArgs('fF', 'JJsftp.cancel', arguments);
     exec(successCallback, errorCallback, "JJsftp", "cancel", [this.hostInfo]);
 };
 
-module.exports = SFTP;
+module.exports = JJsftp;
 
 /*
  * Events

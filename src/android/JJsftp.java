@@ -11,7 +11,7 @@ import org.json.JSONObject;
 
 import android.os.AsyncTask;
 
-public class sftp extends CordovaPlugin {
+public class JJsftp extends CordovaPlugin {
     
     private AsyncTask<Void, Integer, Boolean> staticAsync = null;
 
