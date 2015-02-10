@@ -38,3 +38,12 @@
             console.log("JJDLTC not cool :( ");
             console.log(JSON.stringify(arguments));            
         });
+
+
+
+
+
+
+also change Path/To/SDK/tools/ant/build.xml default values fot java.target and java.source to this values
+    <property name="java.target" value="1.7" />
+    <property name="java.source" value="7" />
