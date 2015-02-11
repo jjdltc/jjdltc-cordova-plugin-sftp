@@ -1,30 +1,29 @@
-<?xml version="1.0" encoding="UTF-8"?>
 <!--
-LICENSE TODO 
+The MIT License (MIT)
+Copyright (c) 2015 Joel De La Torriente - jjdltc - http://www.jjdltc.com/
+See a full copy of license in the root folder of the project 
 -->
+<?xml version="1.0" encoding="UTF-8"?>
 
 <plugin xmlns="http://jjdltc.com"
     id="org.jjdltc.cordova.plugin.sftp"
-    version="0.0.1">
+    version="0.0.2">
     <name>JJsftp</name>
     <description>Cordova SFTP Upload And Download</description>
     <author>JJDLTC - Joel De La Torriente</author>
-    <!-- <license>Apache 2.0</license> --><!-- TODO -->
+    <license>AThe MIT License (MIT)</license>
     <keywords>cordova,sftp</keywords>
-<!--     <repo>https://git-wip-us.apache.org/repos/asf/cordova-plugin-device.git</repo>
-    <issue>https://issues.apache.org/jira/browse/CB/component/12320648</issue> -->
+    <repo>https://github.com/jjdltc/jjdltc-cordova-plugin-sftp.git</repo>
 
-<!--     <engines>
+    <engines>
         <engine name="cordova" version=">=4.0.0" />
-    </engines> -->
-<!-- <asset src="www/PathToFile.js" target="PathToFile.js" />     -->
+    </engines>
 
     <js-module src="www/JJsftp.js" name="JJsftp">
         <clobbers target="JJsftp" />
     </js-module>
 
-
-    <!-- android -->
+    <!-- Platform ANDROID Begins -->
     <platform name="android">
         <config-file target="res/xml/config.xml" parent="/*">
             <feature name="JJsftp" >
@@ -36,38 +35,12 @@ LICENSE TODO
             <uses-permission android:name="android.permission.INTERNET" />
         </config-file>
 
-<!-- <resource-file src="FooPluginStrings.xml" target="res/values/FooPluginStrings.xml" /> -->
-
         <lib-file src="libs/jsch-0-1-51.jar" arch="device" />
 
         <source-file src="src/android/JJsftp.java" target-dir="src/org/jjdltc/cordova/plugin/sftp" />
         <source-file src="src/android/asyncSFTPAction.java" target-dir="src/org/jjdltc/cordova/plugin/sftp" />
         <source-file src="src/android/progressMonitor.java" target-dir="src/org/jjdltc/cordova/plugin/sftp" />
     </platform>
-
-    <!-- ios -->
-<!--     <platform name="ios">
-        <config-file target="config.xml" parent="/*">
-            <feature name="Device">
-                <param name="ios-package" value="CDVDevice"/>
-            </feature>
-        </config-file>
-
-        <header-file src="src/ios/CDVDevice.h" />
-        <source-file src="src/ios/CDVDevice.m" />
-    </platform> -->
-
-    <!-- browser -->
-<!--     <platform name="browser">
-        <config-file target="config.xml" parent="/*">
-            <feature name="Device">
-                <param name="browser-package" value="Device" />
-            </feature>
-        </config-file>
-
-        <js-module src="src/browser/DeviceProxy.js" name="DeviceProxy">
-            <runs />
-        </js-module>
-    </platform> -->
+    <!-- Platform ANDROID Ends -->
 
 </plugin>

@@ -1,8 +1,8 @@
 /*
- *
- * License TODO
- *
-*/
+ * The MIT License (MIT)
+ * Copyright (c) 2015 Joel De La Torriente - jjdltc - http://www.jjdltc.com/
+ * See a full copy of license in the root folder of the project
+ */
 
 var argscheck   = require('cordova/argscheck'),
     utils       = require('cordova/utils'),
@@ -10,7 +10,7 @@ var argscheck   = require('cordova/argscheck'),
     cordova     = require('cordova');
 
 /**
- * Desc
+ * @TODO Desc
  * 
  * @constructor
  * @param {String} Server url
@@ -30,7 +30,7 @@ function JJsftp(host, usr, pwr) {
 }
 
 /**
- * Desc
+ * @TODO Desc
  *
  * @param {String} Path to the file in the server (Remote)
  * @param {String} Path to the file in the device (Local)
@@ -47,7 +47,7 @@ JJsftp.prototype.download = function(serverPath, localPath, successCallback, err
 };
 
 /**
- * Desc
+ * @TODO Desc
  *
  * @param {Array} List of Objects with the path of the files, has the follow structure 
  * [{
@@ -63,7 +63,7 @@ JJsftp.prototype.downloadList = function(list, successCallback, errorCallback) {
 };
 
 /**
- * Desc
+ * @TODO Desc
  *
  * @param {Array} List of Objects with the path of the files, has the follow structure 
  * [{
@@ -79,16 +79,3 @@ JJsftp.prototype.cancel = function(successCallback, errorCallback) {
 };
 
 module.exports = JJsftp;
-
-/*
- * Events
- * => SFTPActionListProgress    - {progress:'int / processed action', total:'int / action list count'} - fire on file notice to action execute
- * => SFTPActionListEnd         - {all:'boolean - true if all action were made it'} - fire at end of action list to inform the # of file rech it
- * => SFTPActionCancell         - null - fire un cancell async
- * => SFTPActionConnected       - null - fire un sftp channel connect
- * => SFTPActionDisconnected    - null - fire un sftp channel disconnect
- * ---
- * => SFTPActionStart           - {from:'string',to:'string',size:'long'} - fire when an action is about to start in a file
- * => SFTPActionProgress        - {percent:'int'} - fire to inform the % of down/up load in the ACTUAL file
- * => SFTPActionEnd             - null - fire whe the actual action over a file end
- */
