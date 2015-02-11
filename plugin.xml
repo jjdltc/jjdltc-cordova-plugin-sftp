@@ -16,7 +16,7 @@ See a full copy of license in the root folder of the project
     <repo>https://github.com/jjdltc/jjdltc-cordova-plugin-sftp.git</repo>
 
     <engines>
-        <engine name="cordova" version=">=4.0.0" />
+        <engine name="cordova" version=">=3.6.0" />
     </engines>
 
     <js-module src="www/JJsftp.js" name="JJsftp">
