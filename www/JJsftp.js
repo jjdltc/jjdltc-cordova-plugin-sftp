@@ -18,7 +18,7 @@ var argscheck   = require('cordova/argscheck'),
  * @param {String} Password that match with the user name credentials
  */
 function JJsftp(host, usr, pwr) {
-    argscheck.checkArgs('sSS', 'JJsftp', arguments);
+    argscheck.checkArgs('sss', 'JJsftp', arguments);
     this.host       = host || false;
     this.usr        = usr || false;
     this.pwr        = pwr || false;
@@ -38,7 +38,7 @@ function JJsftp(host, usr, pwr) {
  * @param {Function} errorCallback The function to call when there is an error getting the heading data. (OPTIONAL)
  */
 JJsftp.prototype.download = function(serverPath, localPath, successCallback, errorCallback) {
-    argscheck.checkArgs('sSFF', 'JJsftp.download', arguments);
+    argscheck.checkArgs('ssFF', 'JJsftp.download', arguments);
     var actionInfo      = [{
           remote        : serverPath
         , local         : localPath
@@ -74,7 +74,7 @@ JJsftp.prototype.downloadList = function(list, successCallback, errorCallback) {
  * @param {Function} errorCallback The function to call when there is an error getting the heading data. (OPTIONAL)
  */
 JJsftp.prototype.cancel = function(successCallback, errorCallback) {
-    argscheck.checkArgs('fF', 'JJsftp.cancel', arguments);
+    argscheck.checkArgs('FF', 'JJsftp.cancel', arguments);
     exec(successCallback, errorCallback, "JJsftp", "cancel", [this.hostInfo]);
 };
 
