@@ -56,17 +56,8 @@ There are several events that fire during the process, all of it give one arg, t
     * __Extra event attributes__: none
     * __Desc__: Fire on cancel async action
 
-
-This plugin need `Path/To/SDK/tools/ant/build.xml` default values for `java.target` and `java.source` by updated with the follow values at least:
-```
-<property name="java.target" value="1.7" />
-<property name="java.source" value="7" />
-```
-And your project compiling with at least java 7
-
 There is a big TODO list, but in resume  
   
 * Add Uploading feature
 * Write a better documentation
 * Propose new utils features (I think maybe in a fetch directory will be util) without lose the perspective of the plugin (Upload - Download via SFTP)
-* Add the enums (For the switch) and re code the multiple catch clause (Let's face it, It should be compatible with the default cordova install and android default params u.u, but I Still prefer do it with Java 7)
