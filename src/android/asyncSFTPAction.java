@@ -43,7 +43,7 @@ public class asyncSFTPAction extends AsyncTask<Void, Integer, Boolean> {
             this.doConnection(this.hostData);
             this.actionExecution(this.actionArr);
             this.closeConn();
-        } catch (JSchException  | SftpException e) {
+        } catch (Exception e) { /*  JSchException | SftpException e */
             e.printStackTrace();
             Log.e("SFTP Plugin - JJDLTC", "There was a problem in the async execution" );
             this.closeConn();

@@ -16,7 +16,12 @@ import android.os.AsyncTask;
 public class JJsftp extends CordovaPlugin {
     
     private AsyncTask<Void, Integer, Boolean> staticAsync = null;
-
+    private enum ACTIONS {
+          download
+        , upload
+        , cancel
+    };
+    
     /**
      * Executes the request and returns PluginResult.
      *
@@ -36,16 +41,16 @@ public class JJsftp extends CordovaPlugin {
             return false;
         }
         
-        switch (action) {
-            case "download":
+        switch (ACTIONS.valueOf(action)) {
+            case download:
                 this.download(hostData, actionArr);
                 this.processResponse(callbackContext, true, "Download is added to to list");
             break;
-            case "upload":
+            case upload:
                 this.processResponse(callbackContext, false, "Upload is not yet supported by this plugin");
                 result = false;
             break;
-            case "cancel":
+            case cancel:
                 boolean cancellSuccess = this.cancelStaticAsync();
                 String msg = (cancellSuccess)?"Cancellation request sent":"Cancellation request sent but we are unable to execute (may not be such a process or is already cancelled)";
                 this.processResponse(callbackContext, cancellSuccess, msg);
