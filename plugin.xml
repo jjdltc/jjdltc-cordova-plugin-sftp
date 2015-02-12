@@ -11,7 +11,7 @@ See a full copy of license in the root folder of the project
     <name>JJsftp</name>
     <description>Cordova SFTP Upload And Download</description>
     <author>JJDLTC - Joel De La Torriente</author>
-    <license>AThe MIT License (MIT)</license>
+    <license>The MIT License (MIT)</license>
     <keywords>cordova,sftp</keywords>
     <repo>https://github.com/jjdltc/jjdltc-cordova-plugin-sftp.git</repo>
 
