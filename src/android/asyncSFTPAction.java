@@ -28,12 +28,14 @@ public class asyncSFTPAction extends AsyncTask<Void, Integer, Boolean> {
     private JSONObject hostData     = null;
     private JSONArray actionArr     = null;
     private CordovaWebView actualWv = null;
+    private String action			= "";
     private int fileListSize        = 0;
     
-    public asyncSFTPAction(JSONObject hostData, JSONArray actionArr, CordovaWebView actualWv) {
+    public asyncSFTPAction(JSONObject hostData, JSONArray actionArr, String action, CordovaWebView actualWv) {
         this.hostData   = hostData;
         this.actionArr  = actionArr;
         this.actualWv   = actualWv;
+        this.action 	= action;
     }
     
     @Override
@@ -92,7 +94,12 @@ public class asyncSFTPAction extends AsyncTask<Void, Integer, Boolean> {
         this.fileListSize = actions.length();
         for (int i = 0; i < actions.length(); i++) {
             JSONObject item = (JSONObject)actions.opt(i);
-            this.sftpChannel.get(item.optString("remote"), item.optString("local"), new progressMonitor(this.actualWv));
+            if(action=="download"){
+                this.sftpChannel.get(item.optString("remote"), item.optString("local"), new progressMonitor(this.actualWv));            	
+            }
+            else{
+            	this.sftpChannel.put(item.optString("local"), item.optString("remote"), new progressMonitor(this.actualWv), ChannelSftp.OVERWRITE);
+            }
             this.publishProgress(i+1);
         }
     }

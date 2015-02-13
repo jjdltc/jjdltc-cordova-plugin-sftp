@@ -47,8 +47,8 @@ public class JJsftp extends CordovaPlugin {
                 this.processResponse(callbackContext, true, "Download is added to to list");
             break;
             case upload:
-                this.processResponse(callbackContext, false, "Upload is not yet supported by this plugin");
-                result = false;
+            	this.upload(hostData, actionArr);
+                this.processResponse(callbackContext, true, "upload is added to to list");
             break;
             case cancel:
                 boolean cancellSuccess = this.cancelStaticAsync();
@@ -88,10 +88,14 @@ public class JJsftp extends CordovaPlugin {
      * 
      * @param hostData          JSONObject with the host data to connect (processed by 'setHostData' function)
      * @param actionArr         JSONArray with the action list to execute (processed by 'setActionArr' function)
-     * @throws JSONException
      */
-    private void download(JSONObject hostData, JSONArray actionArr) throws JSONException{
-        this.staticAsync = new asyncSFTPAction(hostData, actionArr, this.webView);
+    private void download(JSONObject hostData, JSONArray actionArr){
+        this.staticAsync = new asyncSFTPAction(hostData, actionArr, "download", this.webView);
+        this.staticAsync.execute();
+    }
+    
+    private void upload(JSONObject hostData, JSONArray actionArr){
+        this.staticAsync = new asyncSFTPAction(hostData, actionArr, "upload", this.webView);
         this.staticAsync.execute();
     }
     

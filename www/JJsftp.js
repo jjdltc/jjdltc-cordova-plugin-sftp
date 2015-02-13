@@ -5,7 +5,6 @@
  */
 
 var argscheck   = require('cordova/argscheck'),
-    utils       = require('cordova/utils'),
     exec        = require('cordova/exec'),
     cordova     = require('cordova');
 
@@ -30,7 +29,7 @@ function JJsftp(host, usr, pwr) {
 }
 
 /**
- * @TODO Desc
+ * Download and Upload feature, that allow interact with the sftp server
  *
  * @param {String} Path to the file in the server (Remote)
  * @param {String} Path to the file in the device (Local)
@@ -46,8 +45,18 @@ JJsftp.prototype.download = function(serverPath, localPath, successCallback, err
     exec(successCallback, errorCallback, "JJsftp", "download", [this.hostInfo, actionInfo]);
 };
 
+JJsftp.prototype.upload = function(serverPath, localPath, successCallback, errorCallback) {
+    argscheck.checkArgs('ssFF', 'JJsftp.upload', arguments);
+    var actionInfo      = [{
+          remote        : serverPath
+        , local         : localPath
+    }]
+    exec(successCallback, errorCallback, "JJsftp", "upload", [this.hostInfo, actionInfo]);
+};
+
+
 /**
- * @TODO Desc
+ * Download and Upload feature with a list of file paths, that allow interact with the sftp server
  *
  * @param {Array} List of Objects with the path of the files, has the follow structure 
  * [{
@@ -62,14 +71,16 @@ JJsftp.prototype.downloadList = function(list, successCallback, errorCallback) {
     exec(successCallback, errorCallback, "JJsftp", "download", [this.hostInfo, list]);
 };
 
+JJsftp.prototype.uploadList = function(list, successCallback, errorCallback) {
+    argscheck.checkArgs('aFF', 'JJsftp.uploadList', arguments);
+    exec(successCallback, errorCallback, "JJsftp", "upload", [this.hostInfo, list]);
+};
+
+
 /**
- * @TODO Desc
+ * 
+ * Cancel the actual process with the sftp if exists.
  *
- * @param {Array} List of Objects with the path of the files, has the follow structure 
- * [{
- *   remote : Path/To/Server/File,
- *   local  : Path/Where/Save/File
- * },{...},...]
  * @param {Function} successCallback The function to call when the heading data is available
  * @param {Function} errorCallback The function to call when there is an error getting the heading data. (OPTIONAL)
  */
