@@ -56,8 +56,30 @@ There are several events that fire during the process, all of it give one arg, t
     * __Extra event attributes__: none
     * __Desc__: Fire on cancel async action
 
+### Use Example
+To Download
+```
+var sftp        = new JJsftp("host", "user", "password"),
+    localPath   = "String/Path/To/Place/The/Download"
+    filelist    = [{
+          remote    : "/Path/To/Remote/File.*"
+        , local     : localPath+"file.*"
+    },{
+          remote    : "/Path/To/Another/Remote/File.*"
+        , local     : localPath+"anotherFile.*"
+    }];
+
+    sftp.downloadList(filelist, function(data){
+        /* Wow everything goes good, but just in case verify data.success */
+    }, function(error){
+        /* Wow something goes wrong, check the error.message */       
+    });
+```
+Of course if you want, you could add any of the JJsftp events to document and listen the progress of the download by example
+
 There is a big TODO list, but in resume  
   
 * Add Uploading feature
 * Write a better documentation
 * Propose new utils features (I think maybe in a fetch directory will be util) without lose the perspective of the plugin (Upload - Download via SFTP)
+* Add iOS Support (Be Patient)
