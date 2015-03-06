@@ -89,7 +89,12 @@ To Upload is the same but calling `upload` or `uploadList` and by default will o
 Of course if you want, you could add any of the JJsftp events to document and listen the progress of the download by example
 
 There is a big TODO list, but in resume  
-  
+
+* Bug Resolve =>
+      * No Connection Break The App (Should The plugin warning the user or just don't do anything)
+      * No Exists The Local Path Break The App (Should the plugin create the path or should alert the user)
+      * Only receive the absolute platfomr path (Without file://), should be replace in plugin don't force the user to replace it
+      * Events just send a simple string object, need to be parse by user, should be the as many as need witouth the need to parse it
 * Write a better documentation
 * Propose new utils features (I think maybe in a fetch directory will be util) without lose the perspective of the plugin (Upload - Download via SFTP)
 * Add iOS Support (Be Patient)
