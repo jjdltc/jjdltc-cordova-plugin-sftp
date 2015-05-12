@@ -16,13 +16,17 @@ var mySftp = new JJsftp("host", "user", "password");
 ```
 ###Methods###
 
-* `download(serverPath, localPath [, successCallback, errorCallback])` Allow to download a single file.
+* `download(serverPath, localPath [, createIfNotExists, successCallback, errorCallback])` Allow to download a single file.
     * `serverPath` - Path/To/File/In/Server
     * `localPath` - Path/To/File/In/Device
+    * `createIfNotExists` - Create the folder path if not exist
     * `successCallback` - Function to call in plugin success
     * `errorCallback` - Function to call in plugin error
 * `downloadList(list [, successCallback, errorCallback])` Allow to download a list of files
-    * `list` - Object array of files, with `remote` and `local` attribute
+    * `list` - Object array of files, has the follow attributes:
+        * `remote` - Path/To/File/In/Server
+        * `local` - Local/Path/To/File
+        * [`create`] - default to: `false` - Create the folder path if not exist
     * `successCallback` - Function to call in plugin success
     * `errorCallback` - Function to call in plugin error
 * `upload(serverPath, localPath [, successCallback, errorCallback])` Allow to download a single file.
@@ -93,7 +97,6 @@ There is a big TODO list, but in resume
 
 * Bug Resolve =>
       * No Connection Break The App (Should The plugin warning the user or just don't do anything)
-      * No Exists The Local Path Break The App (Should the plugin create the path or should alert the user)
       * Only receive the absolute platfomr path (Without file://), should be replace in plugin don't force the user to replace it
       * Events just send a simple string object, need to be parse by user, should be the as many as need witouth the need to parse it
 * Write a better documentation
