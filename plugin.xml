@@ -7,7 +7,7 @@ See a full copy of license in the root folder of the project
 
 <plugin xmlns="http://www.jjdltc.com"
     id="org.jjdltc.cordova.plugin.sftp"
-    version="0.0.3">
+    version="0.0.5">
     <name>JJsftp</name>
     <description>Cordova SFTP Upload And Download</description>
     <author>JJDLTC - Joel De La Torriente</author>
