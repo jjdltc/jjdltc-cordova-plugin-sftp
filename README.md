@@ -1,7 +1,8 @@
 SFTP Plugin
 ===
 
-For now just supports downloading, but the uploading feature will come soon, and it is easy to add if someone want to contribute, most of the code allow to implement uploading with no more complication.
+Plugin to Download and Upload files from a SFTP server, easy to add and use.  
+Contributors are welcome.
 
 This plugin is build on top of [JSch](http://www.jcraft.com/jsch/ "In case you want to be curious") library.
 
@@ -11,29 +12,33 @@ Easy Use
   
 There is a base Object `JJsftp` that should be initialized with the `host`, `user` and `password`
 ```
-var myVar = new JJsftp("host", "user", "password");
+var mySftp = new JJsftp("host", "user", "password");
 ```
 ###Methods###
 
-* `download(serverPath, localPath, successCallback, errorCallback)` Allow to download a single file.
+* `download(serverPath, localPath [, createIfNotExists, successCallback, errorCallback])` Allow to download a single file.
+    * `serverPath` - Path/To/File/In/Server
+    * `localPath` - Path/To/File/In/Device
+    * `createIfNotExists` - Create the folder path if not exist
+    * `successCallback` - Function to call in plugin success
+    * `errorCallback` - Function to call in plugin error
+* `downloadList(list [, successCallback, errorCallback])` Allow to download a list of files
+    * `list` - Object array of files, has the follow attributes:
+        * `remote` - Path/To/File/In/Server
+        * `local` - Local/Path/To/File
+        * [`create`] - default to: `false` - Create the folder path if not exist
+    * `successCallback` - Function to call in plugin success
+    * `errorCallback` - Function to call in plugin error
+* `upload(serverPath, localPath [, successCallback, errorCallback])` Allow to download a single file.
     * `serverPath` - Path/To/File/In/Server
     * `localPath` - Path/To/File/In/Device
     * `successCallback` - Function to call in plugin success
     * `errorCallback` - Function to call in plugin error
-* `downloadList(list, successCallback, errorCallback)` Allow to download a list of files
-    * `list` - Object array of files, with `remote` and `local` attribute
-    * `successCallback` - Function to call in plugin success
-    * `errorCallback` - Function to call in plugin error
-* `upload(serverPath, localPath, successCallback, errorCallback)` Allow to download a single file.
-    * `serverPath` - Path/To/File/In/Server
-    * `localPath` - Path/To/File/In/Device
-    * `successCallback` - Function to call in plugin success
-    * `errorCallback` - Function to call in plugin error
-* `uploadList(list, successCallback, errorCallback)` Allow to download a list of files
+* `uploadList(list [, successCallback, errorCallback])` Allow to download a list of files
     * `list` - Object array of files, with `remote` and `local` attribute
     * `successCallback` - Function to call in plugin success
     * `errorCallback` - Function to call in plugin error    
-* `cancel(successCallback, errorCallback)` Allow to cancel the asyn process that make the connection
+* `cancel([successCallback, errorCallback])` Allow to cancel the asyn process that make the connection
     * `successCallback` - Function to call in plugin success
     * `errorCallback` - Function to call in plugin error
 
@@ -89,7 +94,11 @@ To Upload is the same but calling `upload` or `uploadList` and by default will o
 Of course if you want, you could add any of the JJsftp events to document and listen the progress of the download by example
 
 There is a big TODO list, but in resume  
-  
+
+* Bug Resolve =>
+      * No Connection Break The App (Should The plugin warning the user or just don't do anything)
+      * Only receive the absolute platfomr path (Without file://), should be replace in plugin don't force the user to replace it
+      * Events just send a simple string object, need to be parse by user, should be the as many as need witouth the need to parse it
 * Write a better documentation
 * Propose new utils features (I think maybe in a fetch directory will be util) without lose the perspective of the plugin (Upload - Download via SFTP)
 * Add iOS Support (Be Patient)
