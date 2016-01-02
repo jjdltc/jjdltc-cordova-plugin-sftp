@@ -14,7 +14,7 @@ import org.json.JSONObject;
 import android.os.AsyncTask;
 
 public class JJsftp extends CordovaPlugin {
-
+	
 	private AsyncTask<Void, Integer, Boolean> staticAsync = null;
 	private enum ACTIONS {
 		  download
@@ -94,9 +94,24 @@ public class JJsftp extends CordovaPlugin {
 		this.staticAsync.execute();
 	}
 	
+	/**
+	 * Use an custom AsyncTask 'asyncSFTPAction' to execute the upload
+	 * 
+	 * @param hostData          JSONObject with the host data to connect (processed by 'setHostData' function)
+	 * @param actionArr         JSONArray with the action list to execute (processed by 'setActionArr' function)
+	 */
 	private void upload(JSONObject hostData, JSONArray actionArr){
 		this.staticAsync = new asyncSFTPAction(hostData, actionArr, "upload", this.webView);
 		this.staticAsync.execute();
+	}
+
+	/**
+	 * Cancel the actual action, if no action exists do nothing
+	 * 
+	 * @return                  true id the cancelation was asked, false otherwise
+	 */    
+	private boolean cancelStaticAsync(){
+		return (this.staticAsync!=null)?this.staticAsync.cancel(true):false;
 	}
 	
 	/**
@@ -118,6 +133,7 @@ public class JJsftp extends CordovaPlugin {
 		if(hostData==null){
 			return null;            
 		}
+
 		if(hostData.opt("port")==null){
 			hostData.put("port", 22);
 		}
@@ -137,10 +153,15 @@ public class JJsftp extends CordovaPlugin {
 	 * 
 	 * @param arguments         The arguments passed by user with the JSONArray of JSONObject with the local and remote path of the files
 	 * @return                  A valid 'actionArr' JSONArray with its inner JSONObject paths
+	 * @throws JSONException 
 	 */
-	private JSONArray setActionArr(JSONArray arguments){
+	private JSONArray setActionArr(JSONArray arguments) throws JSONException{
 		JSONArray actionArr = arguments.optJSONArray(1);
 		boolean validArr    = true;
+		String[] keys       = new String[]{
+			  "remote"
+			, "local"
+		};
 		
 		if(actionArr==null){
 			return null;            
@@ -152,17 +173,25 @@ public class JJsftp extends CordovaPlugin {
 				validArr = false;
 			}
 			else{
-				validArr = (tempActionObj.opt("remote")==null || tempActionObj.opt("local")==null)?false:validArr;
+				for (int keyIdx = 0; keyIdx < keys.length; keyIdx++) {
+					if(tempActionObj.opt(keys[keyIdx])==null){
+						validArr = false;
+						break;
+					}
+					else{
+						if(keys[keyIdx]=="local"){
+							String local    = tempActionObj.optString("local").replace("file://", "");
+							tempActionObj.put("local", local);
+						}
+					}
+				}
 			}
+
 			if(!validArr){
 				break;
 			}
 		}
 		
 		return (validArr)?actionArr:null;
-	}
-	
-	private boolean cancelStaticAsync(){
-		return (this.staticAsync!=null)?this.staticAsync.cancel(true):false;
 	}
 }
