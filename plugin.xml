@@ -24,7 +24,6 @@ See a full copy of license in the root folder of the project
         <clobbers target="JJsftp" />
     </js-module>
 
-    <!-- Platform ANDROID Begins -->
     <platform name="android">
         <config-file target="res/xml/config.xml" parent="/*">
             <feature name="JJsftp" >
@@ -42,6 +41,12 @@ See a full copy of license in the root folder of the project
         <source-file src="src/android/asyncSFTPAction.java" target-dir="src/com/jjdltc/cordova/plugin/sftp" />
         <source-file src="src/android/progressMonitor.java" target-dir="src/com/jjdltc/cordova/plugin/sftp" />
     </platform>
-    <!-- Platform ANDROID Ends -->
 
+    <platform name="ios">
+        <config-file target="config.xml" parent="/*">
+            <feature name="JJsftp">
+                <param name="ios-package" value="JJsftp" />
+            </feature>
+        </config-file>
+    </platform>
 </plugin>
