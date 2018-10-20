@@ -6,6 +6,11 @@ Contributors are welcome.
 
 This plugin is build on top of [JSch](http://www.jcraft.com/jsch/ "In case you want to be curious") library.
 
+Installation
+---
+
+`cordova plugin add cordova-sftp-plugin`
+
 Easy Use  
 ---  
   

@@ -1,0 +1,35 @@
+{
+  "name": "cordova-sftp-plugin",
+  "version": "0.0.4",
+  "description": "Cordova SFTP Upload And Download",
+  "cordova": {
+    "id": "com.jjdltc.cordova.plugin.sftp",
+    "platforms": [
+      "android"
+    ]
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jjdltc/jjdltc-cordova-plugin-sftp.git"
+  },
+  "keywords": [
+    "cordova",
+    "sftp",
+    "upload",
+    "download",
+    "ecosystem:cordova",
+    "cordova-android"
+  ],
+  "engines": [
+    {
+      "name": "cordova",
+      "version": ">=3.6.0"
+    }
+  ],
+  "author": "Joel De La Torriente - jjdltc",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/jjdltc/jjdltc-cordova-plugin-sftp/issues"
+  },
+  "homepage": "https://github.com/jjdltc/jjdltc-cordova-plugin-sftp#readme"
+}
