@@ -1,24 +1,22 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
 The MIT License (MIT)
-Copyright (c) 2015 Joel De La Torriente - jjdltc - http://www.jjdltc.com/
+Copyright (c) 2015 Joel De La Torriente - jjdltc - https://github.com/jjdltc
 See a full copy of license in the root folder of the project 
 -->
 
-<plugin xxmlns="http://apache.org/cordova/ns/plugins/1.0"
+<plugin 
+    xmlns="http://apache.org/cordova/ns/plugins/1.0"
     id="com.jjdltc.cordova.plugin.sftp"
-    version="0.0.5">
+    version="1.1.0">
+
     <name>JJsftp</name>
     <description>Cordova SFTP Upload And Download</description>
-    <author>JJDLTC - Joel De La Torriente</author>
+    <author>Joel De La Torriente - jjdltc@gmail.com - https://github.com/jjdltc</author>
     <license>MIT</license>
     <keywords>cordova,sftp,upload,download</keywords>
     <repo>https://github.com/jjdltc/jjdltc-cordova-plugin-sftp.git</repo>
     <issue>https://github.com/jjdltc/jjdltc-cordova-plugin-sftp/issues</issue>
-
-    <engines>
-        <engine name="cordova" version=">=3.6.0" />
-    </engines>
 
     <js-module src="www/JJsftp.js" name="JJsftp">
         <clobbers target="JJsftp" />
@@ -48,5 +46,12 @@ See a full copy of license in the root folder of the project
                 <param name="ios-package" value="JJsftp" />
             </feature>
         </config-file>
+
+        <source-file src="src/ios/JJsftp.h" />
+        <source-file src="src/ios/JJsftp.m" />
+
+        <framework src="libz.tbd" />
+        <framework src="CFNetwork.framework"/>
+        <framework src="NMSSH" type="podspec" spec="~> 2.3.1" />
     </platform>
 </plugin>

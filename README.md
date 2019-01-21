@@ -3,13 +3,16 @@ SFTP Upload/Download Plugin
 
 Cordova plugin to __Download__ and __Upload__ files from a __SFTP__ server.
 
-This plugin is build on top of [JSch](http://www.jcraft.com/jsch/ "In case you want to be curious") library.
+This plugin is build on top of: 
+  - [JSch](http://www.jcraft.com/jsch/ "In case you want to be curious") library for __Android__.
+  - [NMSSH](http://cocoadocs.org/docsets/NMSSH/2.2.7/index.html "In case you want to be curious") framework for __iOS__.
 
 __Contributors are welcome.__
 
 Platforms supported
 
-* android
+* Android
+* iOS (Partial)
 
 Installation
 ---
@@ -18,8 +21,7 @@ Installation
 
 Easy Use  
 ---  
-  
-  
+    
 There is a base Object `JJsftp`  expose in `window` that should be initialized with the `host`, `user` and `password` for the server
 ```
 var mySftp = new JJsftp("host", "user", "password");
@@ -115,6 +117,10 @@ To Upload is the same but calling `upload` or `uploadList` and by default will o
 
 Of course if you want, you could add any of the JJsftp events to document and listen the progress of the download by example
 
+#### Know Issues
+- `upload` does not work on __iOS__ (Yet)
+- `cancel` does not work on __iOS__ (Yet), therefore `SFTPActionCancell` is never trigger.
+
 There is a big TODO list, but in resume  
 
 * Bug Resolve =>
@@ -123,5 +129,5 @@ There is a big TODO list, but in resume
   * Events just send a simple string object, need to be parse by user, should be the as many as need witouth the need to parse it
 * Write a better documentation
 * Propose new utils features (I think maybe in a fetch directory will be util) without lose the perspective of the plugin (Upload - Download via SFTP)
-* Add iOS Support (Be Patient)
+* _Add iOS Support (Be Patient)_ (Partial done, `download` now available)
 * Improve Uploading and Downloading feature

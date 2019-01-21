@@ -5,7 +5,7 @@ module.exports                      = {
         "node"                      : true,
         "mocha"                     : true
     },
-    "rules"                         :{
+    "rules"                         : {
         "indent"                    : ["error", 4],
         "comma-style"               : ["error", "last"],
         "no-eval"                   : ["error", {"allowIndirect": false}],
