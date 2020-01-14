@@ -52,6 +52,15 @@ See a full copy of license in the root folder of the project
 
         <framework src="libz.tbd" />
         <framework src="CFNetwork.framework"/>
-        <framework src="NMSSH" type="podspec" spec="~> 2.3.1" />
+        <!-- <framework src="NMSSH" type="podspec" spec="~> 2.3.1" /> -->
+
+        <podspec>
+            <config>
+                <source url="https://github.com/CocoaPods/Specs.git"/>
+            </config>
+            <pods use-frameworks="true">
+                <pod name="NMSSH" spec="~> 2.3.1" />
+            </pods>
+        </podspec>
     </platform>
 </plugin>
