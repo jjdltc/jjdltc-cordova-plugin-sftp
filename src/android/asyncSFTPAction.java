@@ -19,6 +19,8 @@ import com.jcraft.jsch.SftpException;
 import android.os.AsyncTask;
 import android.util.Log;
 
+import java.util.UUID;
+
 import org.apache.cordova.CordovaWebView;
 
 public class asyncSFTPAction extends AsyncTask<Void, Integer, Boolean> {
@@ -32,12 +34,15 @@ public class asyncSFTPAction extends AsyncTask<Void, Integer, Boolean> {
     private CordovaWebView actualWv = null;
     private String action           = "";
     private int fileListSize        = 0;
+
+    public String udid              = null;
     
-    public asyncSFTPAction(JSONObject hostData, JSONArray actionArr, String action, CordovaWebView actualWv) {
+    public asyncSFTPAction(JSONObject hostData, JSONArray actionArr, String action, CordovaWebView actualWv, String udid) {
         this.hostData   = hostData;
         this.actionArr  = actionArr;
         this.actualWv   = actualWv;
         this.action     = action;
+        this.udid       = udid;
     }
     
     @Override
@@ -49,7 +54,7 @@ public class asyncSFTPAction extends AsyncTask<Void, Integer, Boolean> {
             this.closeConn();
         } catch (Exception e) { /*  JSchException | SftpException e */
             e.printStackTrace();
-            Log.e("SFTP Plugin - JJDLTC", "There was a problem in the async execution" );
+            Log.e("SFTP Plugin - JJDLTC", "There was a problem in the async execution. [ID:"+this.udid+"]");
             this.closeConn();
             result = false;
         }
@@ -59,37 +64,37 @@ public class asyncSFTPAction extends AsyncTask<Void, Integer, Boolean> {
     @Override
     protected void onProgressUpdate(Integer... progress) {
         super.onProgressUpdate(progress);
-        this.jsEvent("SFTPActionListProgress", "{progress:'"+progress[0]+"', total:'"+this.fileListSize+"'}");
-        Log.d("SFTP Plugin - JJDLTC", "File progress: "+progress[0]+" of "+this.fileListSize+" Complete" );
+        this.jsEvent("SFTPActionListProgress", "{id:'"+this.udid+"', progress:'"+progress[0]+"', total:'"+this.fileListSize+"'}");
+        Log.d("SFTP Plugin - JJDLTC", "File progress: "+progress[0]+" of "+this.fileListSize+" Complete. [ID:"+this.udid+"]" );
     }
     
     @Override
     protected void onPostExecute(Boolean result) {
         super.onPostExecute(result);
-        this.jsEvent("SFTPActionListEnd", "{all:'"+result+"'}");
-        Log.d("SFTP Plugin - JJDLTC", "All the files "+((result)?"were":"weren't")+" reach it" );
+        this.jsEvent("SFTPActionListEnd", "{id:'"+this.udid+"', all:'"+result+"'}");
+        Log.d("SFTP Plugin - JJDLTC", "All the files "+((result)?"were":"weren't")+" reach it. [ID:"+this.udid+"]" );
     }
     
     @Override
     protected void onCancelled() {
         super.onCancelled();
         this.closeConn();
-        this.jsEvent("SFTPActionCancell", null);
-        Log.d("SFTP Plugin - JJDLTC", "Action cancelled by the user" );
+        this.jsEvent("SFTPActionCancell", "{id:'"+this.udid+"'}");
+        Log.d("SFTP Plugin - JJDLTC", "Action cancelled by the user. [ID:"+this.udid+"]" );
     }
     
     @SuppressWarnings("static-access")
     private void doConnection(JSONObject hostData) throws JSchException{
         this.jsch = new JSch();
         this.jsch.setConfig("StrictHostKeyChecking", "no");
-        
+
         this.session = jsch.getSession(hostData.optString("user"), hostData.optString("host"), hostData.optInt("port"));
         this.session.setPassword(hostData.optString("pswd"));
         this.session.connect(); 
         this.sftpChannel = (ChannelSftp) session.openChannel("sftp");
         this.sftpChannel.connect();
-        Log.d("SFTP Plugin - JJDLTC", "Connection Open.");
-        this.jsEvent("SFTPActionConnected", null);
+        this.jsEvent("SFTPActionConnected", "{id:'"+this.udid+"'}");
+        Log.d("SFTP Plugin - JJDLTC", "Connection Open. [ID:"+this.udid+"]");
     }
 
     private void actionExecution(JSONArray actions) throws SftpException{
@@ -101,10 +106,10 @@ public class asyncSFTPAction extends AsyncTask<Void, Integer, Boolean> {
             boolean isValidLocalPath        = this.checkLocalPath(item.optString("local"), isDownload, createIfNeedIt);
             if(isValidLocalPath){
                 if(isDownload){
-                    this.sftpChannel.get(item.optString("remote"), item.optString("local"), new progressMonitor(this.actualWv));                
+                    this.sftpChannel.get(item.optString("remote"), item.optString("local"), new progressMonitor(this.actualWv, this.udid));
                 }
                 else{
-                    this.sftpChannel.put(item.optString("local"), item.optString("remote"), new progressMonitor(this.actualWv), ChannelSftp.OVERWRITE);
+                    this.sftpChannel.put(item.optString("local"), item.optString("remote"), new progressMonitor(this.actualWv, this.udid), ChannelSftp.OVERWRITE);
                 }
             }
             this.publishProgress(i+1);
@@ -125,8 +130,8 @@ public class asyncSFTPAction extends AsyncTask<Void, Integer, Boolean> {
     private void closeConn(){
         this.sftpChannel.exit();
         this.session.disconnect();
-        this.jsEvent("SFTPActionDisconnected", null);
-        Log.d("SFTP Plugin - JJDLTC", "Connection Close.");
+        this.jsEvent("SFTPActionDisconnected", "{id:'"+this.udid+"'}");
+        Log.d("SFTP Plugin - JJDLTC", "Connection Close. [ID:"+this.udid+"]");
     }
     
     @SuppressWarnings("deprecation")
@@ -136,7 +141,7 @@ public class asyncSFTPAction extends AsyncTask<Void, Integer, Boolean> {
             eventString += ", "+data;
         }
         eventString += ");";
-        Log.d("JJDLTC JS TEST", eventString);
+//        Log.d("JJDLTC JS TEST", eventString);
         this.actualWv.sendJavascript(eventString);
     }    
 }

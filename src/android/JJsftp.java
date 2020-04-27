@@ -7,9 +7,12 @@ package com.jjdltc.cordova.plugin.sftp;
 
 import org.apache.cordova.CallbackContext;
 import org.apache.cordova.CordovaPlugin;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+
+import java.util.UUID;
 
 import android.os.AsyncTask;
 
@@ -21,7 +24,9 @@ public class JJsftp extends CordovaPlugin {
         upload,
         cancel
     };
-    
+
+    private String udid = null;
+
     /**
      * Executes the request and returns PluginResult.
      *
@@ -35,7 +40,9 @@ public class JJsftp extends CordovaPlugin {
         
         JSONObject hostData = this.setHostData(args);
         JSONArray actionArr = this.setActionArr(args);
-        
+
+        this.udid = UUID.randomUUID().toString();
+
         if((hostData==null || action == null) && action!="cancel"){
             this.processResponse(callbackContext, false, "Some parameters were missed - hostData or actionArr not found-");
             return false;
@@ -73,8 +80,13 @@ public class JJsftp extends CordovaPlugin {
      */
     private void processResponse(CallbackContext ctx, boolean success, String msg) throws JSONException{
         JSONObject response = new JSONObject();
+        JSONObject data     = new JSONObject();
+
+        data.put("id", this.udid);
+
         response.put("success", success);
         response.put("message", msg);
+        response.put("data", data);
 
         if(success){
             ctx.success(response);
@@ -91,7 +103,7 @@ public class JJsftp extends CordovaPlugin {
      * @param actionArr         JSONArray with the action list to execute (processed by 'setActionArr' function)
      */
     private void download(JSONObject hostData, JSONArray actionArr){
-        this.staticAsync = new asyncSFTPAction(hostData, actionArr, "download", this.webView);
+        this.staticAsync = new asyncSFTPAction(hostData, actionArr, "download", this.webView, this.udid);
         this.staticAsync.execute();
     }
     
@@ -102,7 +114,7 @@ public class JJsftp extends CordovaPlugin {
      * @param actionArr         JSONArray with the action list to execute (processed by 'setActionArr' function)
      */
     private void upload(JSONObject hostData, JSONArray actionArr){
-        this.staticAsync = new asyncSFTPAction(hostData, actionArr, "upload", this.webView);
+        this.staticAsync = new asyncSFTPAction(hostData, actionArr, "upload", this.webView, this.udid);
         this.staticAsync.execute();
     }
 

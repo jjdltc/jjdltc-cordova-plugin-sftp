@@ -8,7 +8,7 @@ See a full copy of license in the root folder of the project
 <plugin 
     xmlns="http://apache.org/cordova/ns/plugins/1.0"
     id="com.jjdltc.cordova.plugin.sftp"
-    version="1.1.0">
+    version="2.0.0">
 
     <name>JJsftp</name>
     <description>Cordova SFTP Upload And Download</description>
@@ -52,8 +52,6 @@ See a full copy of license in the root folder of the project
 
         <framework src="libz.tbd" />
         <framework src="CFNetwork.framework"/>
-        <!-- <framework src="NMSSH" type="podspec" spec="~> 2.3.1" /> -->
-
         <podspec>
             <config>
                 <source url="https://github.com/CocoaPods/Specs.git"/>

@@ -1,13 +1,14 @@
+
 SFTP Upload/Download Plugin
 ===
 
-Cordova plugin to __Download__ and __Upload__ files from a __SFTP__ server.
+Cordova plugin to **Download**/**Upload** files from/to a **SFTP** server.
 
 This plugin is build on top of: 
-  - [JSch](http://www.jcraft.com/jsch/ "In case you want to be curious") library for __Android__.
-  - [NMSSH](http://cocoadocs.org/docsets/NMSSH/2.2.7/index.html "In case you want to be curious") framework for __iOS__.
+  - [JSch](http://www.jcraft.com/jsch/ "In case you want to be curious") library for **Android**.
+  - [NMSSH](http://cocoadocs.org/docsets/NMSSH/2.2.7/index.html "In case you want to be curious") framework for **iOS**.
 
-__Contributors are welcome.__
+**Contributors are welcome.**
 
 Platforms supported
 
@@ -16,14 +17,14 @@ Platforms supported
 
 Installation
 ---
-
-`cordova plugin add cordova-sftp-plugin`
-
+```
+cordova plugin add cordova-sftp-plugin
+```
 Easy Use  
 ---  
     
 There is a base Object `JJsftp`  expose in `window` that should be initialized with the `host`, `user` and `password` for the server
-```
+```javascript
 var mySftp = new JJsftp("host", "user", "password");
 ```
 ### Methods
@@ -62,41 +63,41 @@ Every callback (success or error) will response for the action of add the elemen
 ### Events  
 There are several events that fire during the process, all of it give one arg, the cordova event with few extra attributes  
 
-* `SFTPActionConnected`
-    * __Desc__: Fire on sftp channel connect
-    * __Extra event attributes__: none
-* `SFTPActionStart`
-    * __Desc__: Fire when an action is about to start in a file
-    * __Extra event attributes__: 
-      * `from`- string : Path of the source
+* `SFTPActionConnected(data)` - Fire on sftp channel connect
+    * **data** - object: 
+      * `id` - string: UDID related to that connection (**Android Only**) 
+* `SFTPActionStart(data)` - Fire when an action is about to start in a file
+    * **data** - object:
+      * `from` - string : Path of the source
       * `to` - string : Path of the target
       * `size` - long : Size of the element
-* `SFTPActionProgress`
-    * __Desc__: fire to inform the % of down/up load in the ACTUAL file
-    * __Extra event attributes__: 
+    * `id` - string: UDID related to that connection (**Android Only**) 
+* `SFTPActionProgress(data)` - fire to inform the % of down/up load in the **_actual_** file
+    * **data** - object: 
       * `percent` - int : % of actual file progress
-* `SFTPActionEnd`
-    * __Desc__: fire whe the ACTUAL action over a file end
-    * __Extra event attributes__: none
-* `SFTPActionListProgress`
-    * __Desc__: Fire after an action (Up/Down) is executed over a file, giving the actual file (index in list) and total files in list
-    * __Extra event attributes__: 
+    * `id` - string: UDID related to that connection (**Android Only**) 
+* `SFTPActionEnd(data)` - fire when the **_actual_** action over a file end
+    * **data** - object: 
+      * `id` - string: UDID related to that connection (**Android Only**) 
+* `SFTPActionListProgress(data)` - Fire after an action (Up/Down) is executed over a file, giving the actual file (index in list) and total files in list
+    * **data** - object: 
       * `progress` - int : Actual element index in list
       * `total` - int : Total count of elements in list
-* `SFTPActionListEnd`
-    * __Desc__: Fire at end of action list to inform the # of file rech it
-    * __Extra event attributes__: 
+    * `id` - string: UDID related to that connection (**Android Only**)
+* `SFTPActionListEnd(data)` - Fire at end of action list to inform the # of file reach it
+    * **data** - object: 
       * `all` - boolean : true if all action were made it
-* `SFTPActionDisconnected`
-    * __Desc__: Fire on sftp channel disconnect
-    * __Extra event attributes__: none
-* `SFTPActionCancell`
-    * __Desc__: Fire on cancel async action
-    * __Extra event attributes__: none
+    * `id` - string: UDID related to that connection (**Android Only**)
+* `SFTPActionDisconnected(data)` - Fire on sftp channel disconnect
+    * **data** - object: 
+    * `id` - string: UDID related to that connection (**Android Only**)
+* `SFTPActionCancell(data)` - Fire on cancel async action
+    * **data** - object: 
+    * `id` - string: UDID related to that connection (**Android Only**)
 
 ### Use Example
 To Download
-```
+```javascript
 var sftp        = new JJsftp("host", "user", "password"),
     localPath   = "String/Path/To/Place/The/Download"
     filelist    = [{
@@ -117,16 +118,15 @@ To Upload is the same but calling `upload` or `uploadList` and by default will o
 
 Of course if you want, you could add any of the JJsftp events to document and listen the progress of the download by example
 
-#### Know Issues
-- `upload` does not work on __iOS__ (Yet)
-- `cancel` does not work on __iOS__ (Yet), therefore `SFTPActionCancell` is never trigger.
+#### Know Issues
+- `upload` does not work on **iOS** (Yet)
+- `cancel` does not work on **iOS** (Yet), therefore `SFTPActionCancell` is never trigger.
 
 There is a big TODO list, but in resume  
 
 * Bug Resolve =>
   * No Connection Break The App (Should The plugin warning the user or just don't do anything)
-  * ~~Only receive the absolute platfomr path (Without file://), should be replace in plugin don't force the user to replace it~~
-  * Events just send a simple string object, need to be parse by user, should be the as many as need witouth the need to parse it
+  * Events just send a simple string object, need to be parse by user, should be the as many as need without the need to parse it
 * Write a better documentation
 * Propose new utils features (I think maybe in a fetch directory will be util) without lose the perspective of the plugin (Upload - Download via SFTP)
 * _Add iOS Support (Be Patient)_ (Partial done, `download` now available)
