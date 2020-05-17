@@ -1,6 +1,6 @@
 {
   "name": "cordova-sftp-plugin",
-  "version": "2.0.0",
+  "version": "2.0.1",
   "description": "Cordova SFTP Upload And Download",
   "cordova": {
     "id": "com.jjdltc.cordova.plugin.sftp",
@@ -24,14 +24,14 @@
   ],
   "scripts": {
     "jslint": "eslint ./www/"
-  },  
+  },
   "engines": {
     "cordovaDependencies": {
-      "1.1.0": { 
-        "cordova" : ">=7.0.0",
+      "1.1.0": {
+        "cordova": ">=7.0.0",
         "cordova-ios": ">=4.4.0"
       },
-      "2.0.0": {
+      "<2.0.1": {
         "cordova": ">=9.0.0",
         "cordova-ios": ">=4.4.0"
       }
