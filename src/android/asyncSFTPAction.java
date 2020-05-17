@@ -71,7 +71,7 @@ public class asyncSFTPAction extends AsyncTask<Void, Integer, Boolean> {
     @Override
     protected void onPostExecute(Boolean result) {
         super.onPostExecute(result);
-        this.jsEvent("SFTPActionListEnd", "{id:'"+this.udid+"', all:'"+result+"'}");
+        this.jsEvent("SFTPActionListEnd", "{id:'"+this.udid+"', all:"+result+"}");
         Log.d("SFTP Plugin - JJDLTC", "All the files "+((result)?"were":"weren't")+" reach it. [ID:"+this.udid+"]" );
     }
     
@@ -128,7 +128,9 @@ public class asyncSFTPAction extends AsyncTask<Void, Integer, Boolean> {
     }
 
     private void closeConn(){
-        this.sftpChannel.exit();
+        if(this.sftpChannel != null){
+            this.sftpChannel.exit();
+        }
         this.session.disconnect();
         this.jsEvent("SFTPActionDisconnected", "{id:'"+this.udid+"'}");
         Log.d("SFTP Plugin - JJDLTC", "Connection Close. [ID:"+this.udid+"]");
@@ -141,7 +143,6 @@ public class asyncSFTPAction extends AsyncTask<Void, Integer, Boolean> {
             eventString += ", "+data;
         }
         eventString += ");";
-//        Log.d("JJDLTC JS TEST", eventString);
         this.actualWv.sendJavascript(eventString);
     }    
 }

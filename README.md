@@ -68,32 +68,32 @@ There are several events that fire during the process, all of it give one arg, t
       * `id` - string: UDID related to that connection (**Android Only**) 
 * `SFTPActionStart(data)` - Fire when an action is about to start in a file
     * **data** - object:
+      * `id` - string: UDID related to that connection (**Android Only**) 
       * `from` - string : Path of the source
       * `to` - string : Path of the target
       * `size` - long : Size of the element
-    * `id` - string: UDID related to that connection (**Android Only**) 
 * `SFTPActionProgress(data)` - fire to inform the % of down/up load in the **_actual_** file
     * **data** - object: 
+      * `id` - string: UDID related to that connection (**Android Only**) 
       * `percent` - int : % of actual file progress
-    * `id` - string: UDID related to that connection (**Android Only**) 
 * `SFTPActionEnd(data)` - fire when the **_actual_** action over a file end
     * **data** - object: 
       * `id` - string: UDID related to that connection (**Android Only**) 
 * `SFTPActionListProgress(data)` - Fire after an action (Up/Down) is executed over a file, giving the actual file (index in list) and total files in list
     * **data** - object: 
+      * `id` - string: UDID related to that connection (**Android Only**)
       * `progress` - int : Actual element index in list
       * `total` - int : Total count of elements in list
-    * `id` - string: UDID related to that connection (**Android Only**)
 * `SFTPActionListEnd(data)` - Fire at end of action list to inform the # of file reach it
     * **data** - object: 
+      * `id` - string: UDID related to that connection (**Android Only**)
       * `all` - boolean : true if all action were made it
-    * `id` - string: UDID related to that connection (**Android Only**)
 * `SFTPActionDisconnected(data)` - Fire on sftp channel disconnect
     * **data** - object: 
-    * `id` - string: UDID related to that connection (**Android Only**)
+      * `id` - string: UDID related to that connection (**Android Only**)
 * `SFTPActionCancell(data)` - Fire on cancel async action
     * **data** - object: 
-    * `id` - string: UDID related to that connection (**Android Only**)
+      * `id` - string: UDID related to that connection (**Android Only**)
 
 ### Use Example
 To Download
@@ -121,13 +121,3 @@ Of course if you want, you could add any of the JJsftp events to document and li
 #### Know Issues
 - `upload` does not work on **iOS** (Yet)
 - `cancel` does not work on **iOS** (Yet), therefore `SFTPActionCancell` is never trigger.
-
-There is a big TODO list, but in resume  
-
-* Bug Resolve =>
-  * No Connection Break The App (Should The plugin warning the user or just don't do anything)
-  * Events just send a simple string object, need to be parse by user, should be the as many as need without the need to parse it
-* Write a better documentation
-* Propose new utils features (I think maybe in a fetch directory will be util) without lose the perspective of the plugin (Upload - Download via SFTP)
-* _Add iOS Support (Be Patient)_ (Partial done, `download` now available)
-* Improve Uploading and Downloading feature
