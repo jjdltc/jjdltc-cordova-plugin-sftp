@@ -36,7 +36,47 @@
 }
 
 - (void)upload:(CDVInvokedUrlCommand*)command {
-    CDVPluginResult* pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK messageAsString:@"Hi upload"];
+    // Set the host data to the class instance
+    [self set_hostData:[command argumentAtIndex:0]];
+
+    // Set sftp local/remote file info to the class instance
+    [self set_actionArr:[command argumentAtIndex:1]];
+
+    // create nil plugin result
+    CDVPluginResult* pluginResult = nil;
+
+    // Create sftp instance
+    [self doConnection];
+
+    // If the remote/local path was properly entered in the action array
+    if ([self.actionArr count] > 0) {
+        NSDictionary *item = [self.actionArr objectAtIndex:0];
+
+        // Get Local Filepath from class instance
+        NSString *local = [item valueForKey:@"local"];
+
+        // Remove file:// from filepath parameter
+        local = [local stringByReplacingOccurrencesOfString:@"file://" withString:@""];
+        
+        // Get Remote Filepath from class instance 
+        NSString *remote = [item valueForKey:@"remote"];
+
+        // Do the sftp file transfer
+        Boolean uploadSuccess = [self.sftpInstance writeFileAtPath:local toFileAtPath:remote];
+
+        // Set Success/Error plugin result
+        if (uploadSuccess) {
+            pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK messageAsString:@"upload success"];
+        } else {
+            pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_ERROR];
+        }
+
+    } else {
+        // There are no action array parameters
+        pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_ERROR];
+    }
+
+    // Return plugin result
     [self.commandDelegate sendPluginResult:pluginResult callbackId:command.callbackId];
 }
 
